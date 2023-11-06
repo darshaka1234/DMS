@@ -11,12 +11,12 @@ const HomePage = () => {
     dispatch(getAllCategories());
   }, []);
 
-  const NewsData = useSelector(state.news.data);
+  const NewsData = useSelector((state) => state.data);
 
   return (
-    <div>
+    <div className="w-screen grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 justify-center">
       {NewsData?.map((item) => (
-        <NewsCard data={item} />
+        <NewsCard key={item.hash.datavalue} data={item} />
       ))}
     </div>
   );
