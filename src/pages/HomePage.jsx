@@ -8,6 +8,7 @@ import { BsCardList, BsFillGridFill } from "react-icons/bs";
 import TileSet from "../components/TileSet";
 import NavBar from "../components/NavBar";
 import LoadMoreButton from "../components/LoadMoreButton";
+import Search from "../components/Search";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -33,11 +34,7 @@ const HomePage = () => {
           <DropDown />
         </div>
         <div className="flex flex-row">
-          <input
-            type="text"
-            placeholder="Search"
-            className="input input-bordered w-full max-w-xs input-sm mr-5"
-          />
+          <Search />
           <BsCardList className="text-4xl mx-1" />
           <BsFillGridFill className="text-4xl mx-1" />
         </div>

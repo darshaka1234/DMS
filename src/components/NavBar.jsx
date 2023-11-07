@@ -18,7 +18,7 @@ const NavBar = () => {
     },
   ];
   return (
-    <div className="flex justify-between py-5">
+    <div className="flex justify-between py-5 mx-36">
       <div className="flex flex-row">
         <div className="mr-5">LOGO</div>
         <div>BEARDY</div>

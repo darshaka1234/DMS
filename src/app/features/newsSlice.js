@@ -3,7 +3,9 @@ import {
   getAllCategories,
   getAllNews,
   getAllNewsForCard,
+  getAllNewsForList,
   getNews,
+  getSearchNews,
   getSecondNews,
 } from "../Api";
 
@@ -13,6 +15,7 @@ const initialState = {
   categories: [],
   singleNews: [],
   cardData: [],
+  listData: [],
   err: "",
 };
 
@@ -71,6 +74,25 @@ const newsSlice = createSlice({
       state.data = newALL;
     },
     [getSecondNews.rejected]: (state, action) => {
+      state.err = action.error.message;
+    },
+    [getSearchNews.pending]: (state) => {
+      state.loading = true;
+    },
+    [getSearchNews.fulfilled]: (state, action) => {
+      (state.loading = false), (state.data = action.payload);
+    },
+    [getSearchNews.rejected]: (state, action) => {
+      state.err = action.error.message;
+    },
+    [getAllNewsForList.pending]: (state) => {
+      state.loading = true;
+    },
+    [getAllNewsForList.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.listData = action.payload;
+    },
+    [getAllNewsForList.rejected]: (state, action) => {
       state.err = action.error.message;
     },
   },
