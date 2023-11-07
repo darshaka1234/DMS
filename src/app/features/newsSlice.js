@@ -1,17 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllCategories, getAllNews } from "../Api";
+import {
+  getAllCategories,
+  getAllNews,
+  getAllNewsForCard,
+  getNews,
+  getSecondNews,
+} from "../Api";
 
 const initialState = {
   loading: false,
   data: [],
   categories: [],
+  singleNews: [],
+  cardData: [],
   err: "",
 };
 
 const newsSlice = createSlice({
   name: "news",
   initialState,
-  reducers: {},
+  reducers: {
+    filterData: (state, action) => {
+      state.data = action.payload;
+    },
+  },
   extraReducers: {
     [getAllNews.pending]: (state) => {
       state.loading = true;
@@ -31,7 +43,37 @@ const newsSlice = createSlice({
     [getAllCategories.rejected]: (state, action) => {
       state.err = action.error.message;
     },
+    [getNews.pending]: (state) => {
+      state.loading = true;
+    },
+    [getNews.fulfilled]: (state, action) => {
+      (state.loading = false), (state.singleNews = action.payload);
+    },
+    [getNews.rejected]: (state, action) => {
+      state.err = action.error.message;
+    },
+    [getAllNewsForCard.pending]: (state) => {
+      state.loading = true;
+    },
+    [getAllNewsForCard.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.cardData = action.payload;
+    },
+    [getAllNewsForCard.rejected]: (state, action) => {
+      state.err = action.error.message;
+    },
+    [getSecondNews.pending]: (state) => {
+      state.loading = true;
+    },
+    [getSecondNews.fulfilled]: (state, action) => {
+      state.loading = false;
+      const newALL = [...state.data, ...action.payload];
+      state.data = newALL;
+    },
+    [getSecondNews.rejected]: (state, action) => {
+      state.err = action.error.message;
+    },
   },
 });
-
+export const { filterData } = newsSlice.actions;
 export default newsSlice.reducer;
